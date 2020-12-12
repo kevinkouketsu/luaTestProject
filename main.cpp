@@ -10,15 +10,14 @@ int my_fun(int a, int b)
 
 int main(int, char**) 
 {
-    luwra::State* state = luaL_newstate();
-    luaL_openlibs(state);
+    luwra::StateWrapper state;
+	state.loadStandardLibrary();
+    state["my_fun"] = LUWRA_WRAP(my_fun);
 
-    lua_CFunction cfun = LUWRA_WRAP(my_fun);
-    luwra::setGlobal(state, "my_fun", cfun);
-
-    if (luaL_dofile(state, "teste.lua") == LUA_OK)
+    if (state.runFile("teste.lua") == LUA_OK)
     {   
-        std::cout << "Worked" << std::endl;
+        auto a = state.get<std::function<int (int, int)>>("sum");
+        std::cout << a(15, 15) << std::endl; 
     }
     else
     {
