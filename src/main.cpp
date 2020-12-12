@@ -17,7 +17,8 @@ int main(int, char**)
     if (state.runFile("teste.lua") == LUA_OK)
     {   
         auto a = state.get<std::function<int (int, int)>>("sum");
-        std::cout << a(15, 15) << std::endl; 
+        std::cout << a(15, 15) << std::endl;
+        std::cout << a(15, 15) << std::endl;
     }
     else
     {

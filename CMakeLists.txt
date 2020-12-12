@@ -7,10 +7,11 @@ INCLUDE_DIRECTORIES(
 )
 
 set(LUATESTSOURCES
-    main.cpp
+    src/main.cpp
 )
 
 add_executable(luaTest ${LUATESTSOURCES})
+target_precompile_headers(luaTest PRIVATE src/pch.h)
 
 if (WIN32)
     find_library(
