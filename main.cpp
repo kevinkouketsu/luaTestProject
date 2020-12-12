@@ -13,13 +13,12 @@ int main(int, char**)
     luwra::State* state = luaL_newstate();
     luaL_openlibs(state);
 
-    // Convert to lua_CFunction
     lua_CFunction cfun = LUWRA_WRAP(my_fun);
     luwra::setGlobal(state, "my_fun", cfun);
 
-    if (luaL_dofile(state, "teste.lua"))
-    {
-
+    if (luaL_dofile(state, "teste.lua") == LUA_OK)
+    {   
+        std::cout << "Worked" << std::endl;
     }
     else
     {

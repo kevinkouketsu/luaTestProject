@@ -6,21 +6,31 @@ INCLUDE_DIRECTORIES(
     3rdparty/lua
 )
 
-if (WIN32)
-    LINK_DIRECTORIES("3rdparty/lua/lib/Win32")
-elseif(UNIX)
-    LINK_DIRECTORIES("3rdparty/lua/lib/linux")
-endif (WIN32)
-
-add_executable(
-    luaTest 
+set(LUATESTSOURCES
     main.cpp
 )
 
-TARGET_LINK_LIBRARIES(
-    luaTest 
-    lua54
-)
+add_executable(luaTest ${LUATESTSOURCES})
+
+if (WIN32)
+    LINK_DIRECTORIES("3rdparty/lua/lib/Win32")
+    TARGET_LINK_LIBRARIES(
+        luaTest 
+        lua54
+    )
+elseif (UNIX)
+    find_library(
+        LUA_LIBRARY 
+        NAMES lua54
+        PATHS "${CMAKE_SOURCE_DIR}/3rdparty/lua/lib/linux"
+    )
+    TARGET_LINK_LIBRARIES(
+        luaTest 
+        PUBLIC 
+        ${LUA_LIBRARY}
+        ${CMAKE_DL_LIBS}
+    )
+endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
