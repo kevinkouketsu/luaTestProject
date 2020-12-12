@@ -8,12 +8,15 @@ INCLUDE_DIRECTORIES(
 
 if (WIN32)
     LINK_DIRECTORIES("3rdparty/lua/lib/Win32")
+elseif(UNIX)
+    LINK_DIRECTORIES("3rdparty/lua/lib/linux")
 endif (WIN32)
 
 add_executable(
     luaTest 
     main.cpp
-    )
+)
+
 TARGET_LINK_LIBRARIES(
     luaTest 
     lua54
