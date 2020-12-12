@@ -13,10 +13,15 @@ set(LUATESTSOURCES
 add_executable(luaTest ${LUATESTSOURCES})
 
 if (WIN32)
-    LINK_DIRECTORIES("3rdparty/lua/lib/Win32")
+    find_library(
+        LUA_LIBRARY 
+        NAMES lua54
+        PATHS "${CMAKE_SOURCE_DIR}/3rdparty/lua/lib/Win32"
+    )
     TARGET_LINK_LIBRARIES(
         luaTest 
-        lua54
+		PUBLIC
+        ${LUA_LIBRARY}
     )
 elseif (UNIX)
     find_library(
