@@ -179,6 +179,11 @@ struct StateWrapper: internal::StateBundle, Table {
 	int runFile(const char* filepath) const {
 		return luaL_dofile(state.get(), filepath);
 	}
+
+	inline
+	int loadFile(const char* filepath) const {
+		return luaL_loadfile(state.get(), filepath);
+	}
 };
 
 LUWRA_NS_END

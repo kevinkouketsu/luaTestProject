@@ -6,8 +6,12 @@ INCLUDE_DIRECTORIES(
     3rdparty/lua
 )
 
+set(CMAKE_CXX_STANDARD 17)
+
 set(LUATESTSOURCES
     src/main.cpp
+    src/npc.cpp
+    src/ScriptInterface.cpp
 )
 
 add_executable(luaTest ${LUATESTSOURCES})
